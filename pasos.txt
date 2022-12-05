@@ -1,0 +1,49 @@
+1- Crear un archivo store.js, va a ser la raiz de Redux. Importamos configureStore, para su configuración.
+
+//Exportamos nuestro Store con el slice que queremos, dentro del reducer:{''}
+export const store = configureStore({
+  reducer:{
+    tasks: tasksReducer
+  }
+})
+
+2- Creamos un archivo tasksSlice, va a ser donde establecemos un estado inicial y funciones. Importamos createSlice.
+
+//Exportamos nuestro taskSlice para luego usar su estado inicial y las funciones que van dentro del reducers.
+//Cuando creamos una funcion lo hacemos de la siguiente manera:   
+
+addTask: (state, action) =>{
+    //state es el estado(claramente), y el action es lo que vos le mandes en el dispatch.
+},
+
+export const taskSlice = createSlice({
+  name:'tasks',
+  initialState,
+  reducers:{
+    //Vamos a poder crear funciones para poder anadir, actualizar, eliminar, etc
+  }
+})
+
+//Para traer las funciones de taskSlice
+export const {addTask, deleteTask, editTask} = taskSlice.actions
+
+//Para traer solo los reducer de taskSlice
+export default taskSlice.reducer
+
+
+3- Dentro de Redux tenemos dos Hooks muy importantes ==> useSelector - useDispatch.
+//useDispatch => este se va utilizar para traer cosas o funciones. De la siguiente manera:
+
+dispatch(deleteTask())
+
+//useSelector => este se utiliza para obtener el estado. De la siguiente manera:
+
+useSelector(state => state.tasks)
+
+4- Por ultimo paras proveer la información en el archivo index.js debo hacer lo siguiente:
+
+//A diferencia de context, no se pasa el value y no se hace desde donde se crea el contexto, sino desde index importando un Provider,
+//y con la propiedad store pasar el store
+<Provider  store={store}>
+    <App />
+</Provider>
